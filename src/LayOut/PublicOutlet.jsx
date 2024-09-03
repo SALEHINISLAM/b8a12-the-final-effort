@@ -1,15 +1,13 @@
 import { Outlet } from "react-router-dom";
+import Footer from "../SharedComponents/Footer";
+import NavBar from "../SharedComponents/NavBar";
 
 const PublicOutlet = () => {
     return (
         <div>
-            <p>
-                Header
-            </p>
+            <NavBar/>
             <Outlet/>
-            <p>
-                Footer
-            </p>
+            <Footer/>
         </div>
     );
 };

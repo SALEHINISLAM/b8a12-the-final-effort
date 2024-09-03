@@ -1,6 +1,8 @@
 import Banner from "./Banner";
+import BMICalculator from "./BMICalculator";
 import ChangeHabits from "./ChangeHabits";
 import RunExtra from "./RunExtra";
+import Team from "./Team";
 import TrainingExercise from "./TrainingExercise";
 
 const Home = () => {
@@ -10,6 +12,8 @@ const Home = () => {
             <ChangeHabits/>
             <RunExtra/>
             <TrainingExercise/>
+            <BMICalculator/>
+            <Team/>
         </div>
     );
 };
