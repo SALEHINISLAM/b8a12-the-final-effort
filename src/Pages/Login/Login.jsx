@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
@@ -12,16 +12,21 @@ const Login = () => {
     watch,
     formState: { errors },
   } = useForm();
-
-  const from=location.state?.from?.pathname ||'/dashboard';
-  const onSubmitLoginForm =async (data) => {
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/dashboard/Home";
+  const onSubmitLoginForm = async (data) => {
     console.log(data);
-    const ourUser=await userLogin(data.email, data.password);
-    console.log(ourUser)
+    const ourUser = await userLogin(data.email, data.password);
+    console.log(ourUser);
   };
-{
-    user && Swal.fire("Welcome back...")
-}
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard/Home");
+    }
+  }, [user]);
+  {
+    user && Swal.fire("Welcome back...");
+  }
   return (
     <div>
       <div className="hero bg-base-200 min-h-screen">
@@ -76,7 +81,7 @@ const Login = () => {
                 </div>
                 <div className="form-control mt-6">
                   <button
-                  disabled={user || loading}
+                    disabled={user || loading}
                     className="btn btn-primary"
                     type="submit"
                   >

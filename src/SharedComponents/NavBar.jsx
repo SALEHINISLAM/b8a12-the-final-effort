@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
-import Swal from "sweetalert2";
 
 const NavBar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const NavOptions = (
     <>
       <li>
@@ -12,12 +11,6 @@ const NavBar = () => {
       </li>
     </>
   );
-  const handleLogOut = async () => {
-    await logOut();
-    if (!user) {
-      Swal.fire('Log Out successful...')
-    }
-  };
   
   return (
     <div>
@@ -54,7 +47,7 @@ const NavBar = () => {
         </div>
         <div className="navbar-end">
           {user ? (
-            <button className="btn" onClick={()=>handleLogOut()}>Logout</button>
+            <a className="btn" href="/dashboard/Home">Go to Dashboard</a>
           ) : (
             <a className="btn" href="/login">
               Get Started
