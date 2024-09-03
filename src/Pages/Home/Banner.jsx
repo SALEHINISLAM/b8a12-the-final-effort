@@ -35,7 +35,7 @@ const Banner = () => {
               and transformation stories to help you get fit and stay fit!
             </p>
             <div className=" flex flex-col md:flex-row gap-4 w-full">
-            <button className="btn btn-error rounded-full text-white text-lg px-10">Join Club Now!</button>
+            <a href="/login" className="btn btn-error rounded-full text-white text-lg px-10">Join Club Now!</a>
             <button className="btn btn-outline rounded-full text-lg px-10">Download App</button>
             </div>
           </div>
