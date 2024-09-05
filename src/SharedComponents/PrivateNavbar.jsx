@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useUserEmailAndName from "../hooks/useUserEmailandName";
 
 const PrivateNavbar = (props) => {
 const {user, logOut}=useContext(AuthContext);
 const navigate=useNavigate()
+const {existingUser}=useUserEmailAndName()
 const handleLogOut=async()=>{
     try{
         await logOut();
@@ -26,13 +28,6 @@ const handleLogOut=async()=>{
         </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle"
-            >
-
-            </div>
             
           </div>
           <div className="dropdown dropdown-end">
@@ -44,7 +39,7 @@ const handleLogOut=async()=>{
               <div className="w-10 rounded-full">
                 <img
                   alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  src={existingUser?.data? existingUser.data.photoUrl :"https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"}
                 />
               </div>
             </div>

@@ -9,12 +9,14 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/firebase.config";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const auth = getAuth(app);
+  const axiosPublic = useAxiosPublic();
 
   const createUser = async (name, email, password) => {
     try {
@@ -63,11 +65,18 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
         const userInfo = { email: currentUser.email };
         console.log(userInfo);
+        const response= await axiosPublic.post("/jwtToken", userInfo)
+        if (response.data.token) {
+          console.log(response.data.token)
+          localStorage.setItem("accessToken",response.data.token)
+        }else{
+          localStorage.removeItem("accessToken");
+        }
       }
       setLoading(false);
     });
@@ -81,7 +90,7 @@ const AuthProvider = ({ children }) => {
     loading,
     createUser,
     logOut,
-    userLogin
+    userLogin,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
