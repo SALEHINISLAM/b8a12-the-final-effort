@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import useUserEmailAndName from "../../hooks/useUserEmailandName";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+
 const UpdateUserInfo = (props) => {
   const [selectedValue, setSelectedValue] = useState("");
   const { userName, userEmail, existingUser, isLoading, error, refetch } =
@@ -13,8 +14,32 @@ const UpdateUserInfo = (props) => {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: userName || "",
+      email: userEmail || "",
+      contactNumber: "",
+      from: "",
+      to: "",
+      photoUrl: "",
+      trainerExperience: "",
+    },
+  });
+
+  useEffect(() => {
+    if (existingUser?.data) {
+      setSelectedValue(existingUser.data.role);
+      setValue("name", userName);
+      setValue("email", userEmail);
+      setValue("contactNumber", existingUser.data.contactNumber || "");
+      setValue("from", existingUser.data.from || "");
+      setValue("to", existingUser.data.to || "");
+      setValue("photoUrl", existingUser.data.photoUrl);
+      setValue("trainerExperience", existingUser.data.trainerExperience || "");
+    }
+  }, [userEmail, userName, existingUser?.data, setValue]);
   if (isLoading) {
     return <span className="loading"></span>;
   }
@@ -22,7 +47,6 @@ const UpdateUserInfo = (props) => {
     return <p>Error occurs during loading this page...</p>;
   }
   const handleSelectedValue = (e) => {
-    //e.preventDefault();
     setSelectedValue(e.target.value);
     console.log(e.target.value);
   };
@@ -34,6 +58,7 @@ const UpdateUserInfo = (props) => {
     }
     return result;
   };
+
   const onSubmitData = async (data) => {
     const preferredTime = timeGenerator(data.from, data.to);
     const userInfo = {
@@ -46,12 +71,25 @@ const UpdateUserInfo = (props) => {
     console.log(userInfo, existingUser);
 
     if (!existingUser.data) {
-      const response = await axiosSecure.post("/updateUserInfo", userInfo);
+      const response = await axiosSecure.post("/addUserInfo", userInfo);
+      console.log(response.data);
       if (response.data.insertedId) {
         Swal.fire("Your information updated successfully...");
         refetch();
       } else {
         Swal.fire("Something went wrong...");
+      }
+    } else {
+      const result = await axiosSecure.put(
+        `/updateUserInfo?email=${userEmail}`,
+        userInfo
+      );
+      console.log(result.data)
+      if (result.data.modifiedCount>0) {
+        Swal.fire("Your information updated successfully...")
+        refetch()
+      }else{
+        Swal.fire("something went wrong...")
       }
     }
   };
@@ -83,18 +121,24 @@ const UpdateUserInfo = (props) => {
     </>
   );
   return (
-    <div className="container mx-auto">
-      <h1 className="text-5xl font-bold text-center">Update Your Info</h1>
+    <div className="container mx-auto space-y-5 py-10">
+      <h1 className="text-5xl font-bold text-center">
+        {
+          existingUser?.data? "Update Your Info":"Add Your Info"
+        }
+      </h1>
       <div className="max-w-xs mx-auto">
         <select
           className="select select-bordered w-full max-w-xs"
           onChange={handleSelectedValue}
+          value={selectedValue || ""}
+          disabled={selectedValue.length>0}
         >
           <option value={"default"}>You are</option>
           <option value={"learner"}>Learner</option>
           <option value={"trainer"}>Trainer</option>
         </select>
-        <form onSubmit={handleSubmit(onSubmitData)}>
+        <form onSubmit={handleSubmit(onSubmitData)} className="space-y-4">
           {selectedValue === "learner" && (
             <>
               <div className="form-control">
@@ -241,7 +285,9 @@ const UpdateUserInfo = (props) => {
               type="submit"
               disabled={!selectedValue || selectedValue === "default"}
             >
-              Submit
+              {
+                existingUser?.data ? 'Update' :'Add'
+              }
             </button>
           </div>
         </form>

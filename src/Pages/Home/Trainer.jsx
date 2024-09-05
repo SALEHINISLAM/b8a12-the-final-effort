@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Trainer = ({ img, name }) => {
+const Trainer = ({ value }) => {
   return (
     <div className="relative w-full h-full">
-      <img src={img} alt="" className="w-full h-full rounded-xl" />
+      <img src={value?.photoUrl} alt="" className="w-full h-full rounded-xl" />
       <div className="absolute bottom-3 left-3">
-        <h3 className="text-xl font-bold text-white">{name}</h3>
+        <h3 className="text-xl font-bold text-white">{value?.name}</h3>
         <h4>Trainer</h4>
       </div>
     </div>
@@ -14,8 +14,7 @@ const Trainer = ({ img, name }) => {
 };
 
 Trainer.propTypes = {
-    name: PropTypes.string,
-    img: PropTypes.string
+    value: PropTypes.object
 };
 
 export default Trainer;

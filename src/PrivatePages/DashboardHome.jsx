@@ -20,7 +20,7 @@ const DashboardHome = (props) => {
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
               et a id nisi.
             </p>
-            <button className="btn btn-primary">Add or Update profile</button>
+            <a className="btn btn-primary" href="/dashboard/updateInfo">Add or Update profile</a>
           </div>
         </div>
       </div>

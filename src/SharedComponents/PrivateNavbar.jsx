@@ -4,6 +4,7 @@ import { AuthContext } from "../Providers/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useUserEmailAndName from "../hooks/useUserEmailandName";
+import { learnerNavOptions, trainerNavOptions } from "./DashboardNavoptions";
 
 const PrivateNavbar = (props) => {
 const {user, logOut}=useContext(AuthContext);
@@ -24,7 +25,7 @@ const handleLogOut=async()=>{
     <div>
       <div className="navbar bg-base-100 container mx-auto">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">iFit Dashboard</a>
+          <a className="btn btn-ghost text-xl" href="/dashboard/home">iFit Dashboard</a>
         </div>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
@@ -52,6 +53,8 @@ const handleLogOut=async()=>{
                     Hi, {user && user.displayName}
                 </button>
               </li>
+              {existingUser?.data?.role==="learner" && learnerNavOptions}
+              {existingUser?.data?.role==="trainer" && trainerNavOptions}
               <li>
                 <a className="btn" href="/dashboard/updateInfo">
                     Add or Update Info
