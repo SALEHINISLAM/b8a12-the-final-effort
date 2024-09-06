@@ -30,13 +30,13 @@ export const trainerNavOptions=<>
     </NavLink>
 </li>
 <li>
-    <NavLink to={'/dashboard/myLearner'} className={'btn'}>
-        My Learner
+    <NavLink to={'/dashboard/interestedStudents'} className={'btn'}>
+        Interested Learner
     </NavLink>
 </li>
 <li>
-    <NavLink to={'/dashboard/myBalance'} className={'btn'}>
-        Check Balance
+    <NavLink to={'/dashboard/myLearner'} className={'btn'}>
+        My Learner
     </NavLink>
 </li>
 </>

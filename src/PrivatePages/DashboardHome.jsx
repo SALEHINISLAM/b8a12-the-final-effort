@@ -1,29 +1,53 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+import useUserEmailAndName from "../hooks/useUserEmailandName";
+import { useNavigate } from "react-router-dom";
 
 const DashboardHome = (props) => {
+  const { existingUser, isLoading, error } = useUserEmailAndName();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (existingUser) {
+      if (existingUser.role) {
+        navigate(`/dashboard/${existingUser.role}home`);
+      }
+    }
+  }, [existingUser, navigate]);
   return (
     <div>
-      <div
-        className="hero min-h-screen"
-        style={{
-          backgroundImage:
-            "url(https://i.postimg.cc/9F6c1Xdd/welcome-3d-text-gold-fancy-typography-illustration.jpg)",
-        }}
-      >
-        <div className="hero-overlay bg-opacity-60"></div>
-        <div className="hero-content text-neutral-content text-center">
-          <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
-            <p className="mb-5">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-            <a className="btn btn-primary" href="/dashboard/updateInfo">Add or Update profile</a>
+      {isLoading ? (
+        <>
+          <span className="loading loading-bars loading-xs"></span>
+          <span className="loading loading-bars loading-sm"></span>
+          <span className="loading loading-bars loading-md"></span>
+          <span className="loading loading-bars loading-lg"></span>
+        </>
+      ) : error ? (
+        <p className="text-error">Error occurs handling the request...</p>
+      ) : (
+        <div
+          className="hero min-h-screen"
+          style={{
+            backgroundImage:
+              "url(https://i.postimg.cc/9F6c1Xdd/welcome-3d-text-gold-fancy-typography-illustration.jpg)",
+          }}
+        >
+          <div className="hero-overlay bg-opacity-60"></div>
+          <div className="hero-content text-neutral-content text-center">
+            <div className="max-w-md">
+              <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
+              <p className="mb-5">
+                Provident cupiditate voluptatem et in. Quaerat fugiat ut
+                assumenda excepturi exercitationem quasi. In deleniti eaque aut
+                repudiandae et a id nisi.
+              </p>
+              <a className="btn btn-primary" href="/dashboard/updateInfo">
+                Add or Update profile
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

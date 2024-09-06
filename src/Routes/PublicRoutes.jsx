@@ -13,6 +13,8 @@ import FindTrainer from '../PrivatePages/LearnerPages/FindTrainer';
 import BookTrainer from '../PrivatePages/LearnerPages/BookTrainer';
 import Payment from '../PrivatePages/LearnerPages/Payment';
 import MyTrainer from '../PrivatePages/LearnerPages/MyTrainer';
+import BookedStudents from '../PrivatePages/TrainerPages/BookedStudents';
+import MyStudents from '../PrivatePages/TrainerPages/MyStudents';
 
 const router = createBrowserRouter(
     [
@@ -73,6 +75,14 @@ const router = createBrowserRouter(
                 {
                     path:'myTrainer',
                     element:<MyTrainer/>,
+                },
+                {
+                    path:"interestedStudents",
+                    element:<BookedStudents/>
+                },
+                {
+                    path:"myLearner",
+                    element:<MyStudents/>
                 }
             ]
         }

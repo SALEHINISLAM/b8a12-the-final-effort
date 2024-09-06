@@ -18,7 +18,10 @@ const TrainerHome = () => {
   }
   return (
     <div className="container mx-auto py-12">
+      <h2 className="py-6 text-5xl font-bold">
       Trainer Home
+      </h2>
+
       <div className=" grid grid-cols-1 md:grid-cols-3 gap-6">
 
         <div className="text-white">
@@ -34,7 +37,7 @@ const TrainerHome = () => {
               <h2 className="card-title">{bookingInfo && bookingInfo?.length}+</h2>
               <p>Students want training from you </p>
               <div className="card-actions">
-                <button className="btn btn-primary">See All</button>
+                <a className="btn btn-primary" href="/dashboard/interestedStudents">See All</a>
               </div>
             </div>
           </div>
@@ -50,10 +53,10 @@ const TrainerHome = () => {
               />
             </figure>
             <div className="card-body items-center text-center">
-              <h2 className="card-title">{} +</h2>
+              <h2 className="card-title">{bookingInfo && bookingInfo.filter(trainer=>trainer.payment==="paid").length}+</h2>
               <p>Paid Students</p>
               <div className="card-actions">
-                <button className="btn btn-primary">See All</button>
+                <a className="btn btn-primary" href="/dashboard/myLearner">See All</a>
               </div>
             </div>
           </div>
@@ -69,10 +72,10 @@ const TrainerHome = () => {
               />
             </figure>
             <div className="card-body items-center text-center">
-              <h2 className="card-title">$ 0+</h2>
+              <h2 className="card-title">$ {bookingInfo && parseInt(bookingInfo.filter(trainer=>trainer.payment==="paid").length)*27}+</h2>
               <p>Remaining in your account</p>
               <div className="card-actions">
-                <button className="btn btn-primary">See All</button>
+                <a className="btn btn-primary" href="/dashboard/myLearner">See All</a>
               </div>
             </div>
           </div>
