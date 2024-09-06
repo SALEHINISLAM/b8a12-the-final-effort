@@ -11,6 +11,8 @@ import UpdateUserInfo from '../Pages/updateUserInfo/updateUserInfo';
 import LearnerHome from '../PrivatePages/LearnerPages/LearnerHome';
 import FindTrainer from '../PrivatePages/LearnerPages/FindTrainer';
 import BookTrainer from '../PrivatePages/LearnerPages/BookTrainer';
+import Payment from '../PrivatePages/LearnerPages/Payment';
+import MyTrainer from '../PrivatePages/LearnerPages/MyTrainer';
 
 const router = createBrowserRouter(
     [
@@ -29,7 +31,11 @@ const router = createBrowserRouter(
                 {
                     path:'/register',
                     element:<Register/>
-                }
+                },
+                // {
+                //     path:"/test",
+                //     element:<Payment/>
+                // }
             ]
         },
         {
@@ -54,11 +60,19 @@ const router = createBrowserRouter(
                 },
                 {
                     path:"findTrainer",
-                    element:<FindTrainer/>
+                    element:<FindTrainer/>,
                 },
                 {
                     path:'bookedTrainer',
-                    element:<BookTrainer/>
+                    element:<BookTrainer/>,
+                },
+                {
+                    path:`payNow/:id`,
+                    element:<Payment/>,
+                },
+                {
+                    path:'myTrainer',
+                    element:<MyTrainer/>,
                 }
             ]
         }

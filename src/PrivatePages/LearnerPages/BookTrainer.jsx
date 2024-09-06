@@ -31,8 +31,9 @@ const BookTrainer = (props) => {
       refetch()
     }
   };
+  
   return (
-    <div>
+    <div className="container mx-auto">
       <h2>My Booked Trainer</h2>
       <div className="">
         <div className="overflow-x-auto">
@@ -63,9 +64,9 @@ const BookTrainer = (props) => {
                       <td>{timing(trainer?.time)}</td>
                       <td>
                         {trainer?.payment === "unpaid" ? (
-                          <button className="btn btn-outline">
+                          <a href={`/dashboard/payNow/${trainer._id}`} className="btn btn-outline">
                             Pay 27$ Now
-                          </button>
+                          </a>
                         ) : (
                           "Payment Completed"
                         )}

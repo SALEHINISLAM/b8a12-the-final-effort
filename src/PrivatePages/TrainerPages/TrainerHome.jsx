@@ -50,7 +50,7 @@ const TrainerHome = () => {
               />
             </figure>
             <div className="card-body items-center text-center">
-              <h2 className="card-title">0+</h2>
+              <h2 className="card-title">{} +</h2>
               <p>Paid Students</p>
               <div className="card-actions">
                 <button className="btn btn-primary">See All</button>

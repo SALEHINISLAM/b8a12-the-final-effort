@@ -17,11 +17,6 @@ export const learnerNavOptions=<>
     </NavLink>
 </li>
 <li>
-    <NavLink to={'/dashboard/paymentHistory'} className={'btn'}>
-            Payment History
-    </NavLink>
-</li>
-<li>
     <NavLink to={'/dashboard/myTrainer'} className={'btn'}>
             My Trainer
     </NavLink>
